@@ -203,6 +203,8 @@
   </div>
 </footer>
 
+<!-- 이용 통계(방침 제2조 7항). defer 가 아니다 — 아래 스크립트가 곧바로 스토어로 넘기기 전에 mbStats 가 있어야 한다 -->
+<script src="/stats.js"></script>
 <script>
   // 스토어 주소 — 출시하면 이 두 줄만 채운다. 빈 문자열은 「아직 없음」이다.
   // 홈페이지의 「Google Play · App Store 출시 준비 중」 문구가 이 페이지(/app/)로 이어진다.
@@ -213,16 +215,41 @@
     var url = { android: STORE.android.trim(), ios: STORE.ios.trim() };
     var ua = navigator.userAgent || "";
 
+    // 스토어로 떠나기 전에 이용 통계 한 줄을 보낸다(store_android·store_ios). 응답을 기다리되 0.8초가 넘으면 그냥 간다 —
+    // 통계 때문에 이동이 막히면 안 된다. stats.js 가 없으면(차단·실패) 곧바로 간다.
+    function leave(event, href, replace) {
+      var gone = false;
+      function go() {
+        if (gone) return;
+        gone = true;
+        if (replace) location.replace(href); else location.href = href;
+      }
+      setTimeout(go, 800);
+      var sent;
+      try { sent = typeof window.mbStats === "function" ? window.mbStats(event) : null; } catch (e) { sent = null; }
+      if (sent && typeof sent.then === "function") sent.then(go, go); else go();
+    }
+
     // 그 기기에서 열렸고 해당 스토어 주소가 있으면 곧장 스토어로 보낸다 (뒤로 가기에 이 페이지가 남지 않게 replace).
     // 앱은 iPhone 전용이다 — iPad 는 보내지 않고 아래 버튼만 보여 준다
-    if (/Android/i.test(ua) && url.android) { location.replace(url.android); return; }
-    if (/iPhone|iPod/i.test(ua) && url.ios) { location.replace(url.ios); return; }
+    if (/Android/i.test(ua) && url.android) { leave("store_android", url.android, true); return; }
+    if (/iPhone|iPod/i.test(ua) && url.ios) { leave("store_ios", url.ios, true); return; }
 
     // 컴퓨터·iPad·주소 미정: 주소가 있는 스토어의 버튼만 보여 준다
     var missing = [];
     [["android", "go-android", "Google Play"], ["ios", "go-ios", "App Store"]].forEach(function (s) {
       var a = document.getElementById(s[1]);
-      if (url[s[0]]) { a.href = url[s[0]]; a.hidden = false; } else { missing.push(s[2]); }
+      if (url[s[0]]) {
+        a.href = url[s[0]]; a.hidden = false;
+        a.addEventListener("click", function (e) {
+          if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {   // 새 탭으로 열면 이 페이지가 남는다 — 기다리지 않는다
+            try { if (typeof window.mbStats === "function") window.mbStats("store_" + s[0]); } catch (err) { /* 무시 */ }
+            return;
+          }
+          e.preventDefault();
+          leave("store_" + s[0], url[s[0]], false);
+        });
+      } else { missing.push(s[2]); }
     });
     if (missing.length === 2) return;            // 둘 다 비어 있으면 출시 준비 중 문구를 그대로 둔다
     document.getElementById("stores").hidden = false;

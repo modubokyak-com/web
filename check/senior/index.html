@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src https://atzosfqrzsfrveympcfj.supabase.co; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src https://atzosfqrzsfrveympcfj.supabase.co; base-uri 'none'; form-action 'none'">
 <title>1분 복용 점검 — 모두의 복약</title>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="모두의 복약">
@@ -25,7 +25,10 @@
   · 판정은 서버(quick_check_v1) 전용이다. 앱(care-app)의 판정 코드를 그대로 옮겼다 — 스크립트 1번 구역.
     서버에 못 닿으면 연결 안내만 보이고, 대신 판정하지 않는다(앱 2026-09-17 결정과 같다).
   · 고른 약·나이·상태는 주소(쿼리·해시)에 싣지 않고, 기기 저장소에도 남기지 않는다.
-    「부모님 약도 점검하기」로 한 번 더 돌려도 같다 — 점검 대상(본인/부모님)은 메모리에만 둔다.
+    「부모님 약도 점검하기」로 한 번 더 돌려도 같다 — 점검 대상(본인/부모님)은 메모리에만 둔다(이용 통계에는 그 구분만 보낸다).
+  · 이용 통계: /stats.js(빌드가 웹사이트/stats.js 로 함께 낸다)가 화면 전환·버튼 몇 개를 web_events 에 보낸다.
+    보내는 것은 단계 이름과 본인/부모님 구분뿐이다 — 고른 것·결과는 싣지 않는다(스크립트의 stat()).
+    그래서 위 CSP 의 script-src 에 'self' 가 있다(/stats.js). connect-src 는 원래부터 Supabase 주소다.
   · 검색 색인 차단: 위 robots 메타만. robots.txt 로는 막지 않는다 — 카카오톡 링크 미리보기 수집기까지 막힐 수 있다.
   · 들어오는 길: 주소 끝 #invite=1 = 카카오 초대(존댓말·큰 글씨, 화면을 넘겨도 주소에 남긴다).
     빌드가 /check/senior/ 로 한 벌 더 낼 때 <html data-entry="pharmacy"> 를 붙인다 = 약국 QR.
@@ -613,6 +616,8 @@ html.big-text .f-lv,html.big-text .f-pharm{font-size:20px}
 <div id="sheet-root"></div>
 <div id="toast" class="wf-toast" role="status" aria-live="polite" hidden></div>
 
+<!-- 이용 통계(방침 제2조 7항) — 방침 시행일 전·추적 거부·끄기를 누른 브라우저에서는 아무것도 보내지 않는다. defer: 첫 화면을 늦추지 않는다 -->
+<script src="/stats.js" defer></script>
 <script>
 "use strict";
 (function () {
@@ -1382,7 +1387,7 @@ const CUSTOM_MAX = 20;          // 직접 입력 — 목록 하나당 상한
    ========================================================================== */
 const state = {
   screen: 'landing',     // landing supp rx analyzing report
-  subject: 'self',       // 누구의 약을 점검하는 중인가 — 'self'(본인) | 'parent'(부모님). 주소·기록·저장소에 싣지 않는다
+  subject: 'self',       // 누구의 약을 점검하는 중인가 — 'self'(본인) | 'parent'(부모님). 주소·기록·저장소에 싣지 않는다(이용 통계의 flow 로만 보낸다)
   sheet: null,           // null | 'manual'
   sheetTarget: 'supplements',
   supplements: [],       // 앱과 같다 — 칩 라벨 + 직접 입력 이름, 누른 순서
@@ -1985,8 +1990,20 @@ function countUp(el, ms, delay) {
   }, delay || 0);
 }
 
+/* 이용 통계 — /stats.js 의 mbStats. 화면이 바뀐 것과 버튼 몇 개만 보낸다. 고른 것·결과는 싣지 않는다.
+   stats.js 는 defer 라 아직 안 왔을 수 있다 — 그동안은 window.mbq 에 쌓아 두면 stats.js 가 와서 보낸다.
+   stats.js 가 막혀 끝내 안 와도 쌓이기만 한다. 통계가 화면을 막으면 안 된다. */
+function stat(event, flow) {
+  try {
+    if (typeof window.mbStats === 'function') window.mbStats(event, flow);
+    else (window.mbq = window.mbq || []).push([event, flow]);
+  } catch (e) { /* 무시 */ }
+}
+
 let lastRenderedScreen = null;
 function render() {
+  /* 첫 화면(landing)은 페이지 열기(view)와 같아서 따로 보내지 않는다 */
+  if (state.screen !== lastRenderedScreen && state.screen !== 'landing') stat('check_' + state.screen, state.subject);
   app.innerHTML = RENDERERS[state.screen]();
   sheetRoot.innerHTML = renderSheet();
   document.body.style.overflow = state.sheet ? 'hidden' : '';
@@ -2025,7 +2042,7 @@ function startAnalyze(retry) {
   const draft = currentDraft();
   analyze(draft).catch(function () { return { ok: false }; }).then(function (r) {
     if (!alive()) { timers.forEach(clearTimeout); return; }
-    if (!r.ok) { timers.forEach(clearTimeout); state.failed = true; render(); return; }
+    if (!r.ok) { timers.forEach(clearTimeout); state.failed = true; render(); stat('check_failed', subject); return; }
     const names = checkItems(draft);
     const result = {
       subject: subject,
@@ -2135,9 +2152,9 @@ const ACTIONS = {
   retry: function () { startAnalyze(true); },
   repick: function () { go('supp'); },
   restart: function () { beginFlow('self'); },              // 부모님 점검에서 눌러도 본인 점검으로 돌아간다
-  'parent-start': function () { beginFlow('parent'); },     // 결과 아래 「부모님 약 점검하기」 — 같은 화면을 한 번 더
+  'parent-start': function () { stat('parent_start'); beginFlow('parent'); },  // 결과 아래 「부모님 약 점검하기」 — 같은 화면을 한 번 더
   'self-start': function () { beginFlow('self'); },         // 부모님 결과 아래 「내 조합 다시 확인하기」
-  share: function () { shareInvite(); },
+  share: function () { stat('share', state.subject); shareInvite(); },
   'big-text': function () {
     state.bigText = !state.bigText;
     document.documentElement.classList.toggle('big-text', state.bigText);
