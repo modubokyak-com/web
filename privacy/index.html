@@ -96,6 +96,12 @@
     padding: 16px 20px; margin: 0 0 20px; }
   .callout.warn { background: #FFF6F1; border-left-color: var(--caution); }
   .callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+  /* 제2조 7항 — 이용 통계 끄기 */
+  .optout { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+  .optout button { min-height: 52px; padding: 0 22px; border: 2px solid var(--ink); border-radius: 12px;
+    background: var(--paper); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
+  .optout button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .optout [role="status"] { margin: 0; color: var(--muted); }
   .quote { margin: 10px 0 0; padding: 12px 16px; background: var(--paper); border: 1px solid var(--line);
     border-radius: 10px; color: #22405C; font-size: 0.96rem; }
   .path { display: inline-block; background: var(--ink); color: #fff; font-weight: 700; padding: 4px 12px; border-radius: 8px; margin: 4px 0; }
@@ -158,7 +164,7 @@
     <p class="label">모두의 복약 · 주식회사 안팜</p>
     <h1>모두의 복약 개인정보처리방침</h1>
     <p class="lead">복약 알람과 복용 조합 확인 서비스 「모두의 복약」의 개인정보처리방침입니다.</p>
-    <p class="updated">시행일 2026년 10월 15일</p>
+    <p class="updated">시행일 2026년 10월 29일 · <a href="/privacy/2026-10-15/">이전 방침(2026년 10월 15일 시행)</a></p>
   </div>
 </section>
 
@@ -186,6 +192,15 @@
 </nav>
 <article class="prose">
 
+<div class="callout warn">
+  <p><strong>개정 안내 (2026년 10월 29일)</strong> — 이전 방침은 <a href="/privacy/2026-10-15/">2026년 10월 15일 시행 방침</a>에서 보실 수 있습니다.</p>
+  <p><strong>바뀐 점</strong>: 웹사이트(<code>modubokyak.com</code>)에서 <strong>방문·단계 이용 통계</strong>를 모읍니다.
+  같은 브라우저로 다시 오셨는지 구분하려고 브라우저 저장소에 <strong>무작위 번호</strong>를 둡니다.
+  약 이름·연령대·건강 상태·점검 결과는 담지 않고, 90일이 지나면 지웁니다.
+  제2조 7항의 「이 브라우저에서 이용 통계 끄기」나 브라우저의 &lsquo;추적 거부&rsquo;로 거부하실 수 있습니다. (제2조 1항·5항·7항, 제3조, 제4조, 제6조, 제7조, 제8조, 제11조)
+  <strong>앱에서 모으는 정보는 바뀌지 않습니다.</strong></p>
+</div>
+
 <h2 id="a1">제1조 (총칙)</h2>
 <p>주식회사 안팜(이하 &ldquo;회사&rdquo;)은 「모두의 복약」(이하 &ldquo;서비스&rdquo;)을 운영하면서
 이용자의 개인정보를 소중하게 생각하며, 「개인정보 보호법」 등 관련 법령을 지킵니다.</p>
@@ -198,7 +213,7 @@
       <tr><th>사업자등록번호</th><td>397-81-04097</td></tr>
       <tr><th>대표자</th><td>안석찬</td></tr>
       <tr><th>주소</th><td>전북특별자치도 전주시 덕진구 송천로 31, 106동 1501호(송천동1가)</td></tr>
-      <tr><th>시행일</th><td>2026년 10월 15일</td></tr>
+      <tr><th>시행일</th><td>2026년 10월 29일</td></tr>
     </tbody>
   </table>
 </div>
@@ -241,7 +256,8 @@
   <li><strong>입력받는 정보는 앱과 같습니다</strong> — 연령대(필수), 해당하는 건강 상태(선택), 지금 드시는 약·영양제 이름(직접 적으신 이름 포함).</li>
   <li>입력하신 값은 <strong>판정을 위해 회사 서버로 바로 전송</strong>되고, 결과만 화면으로 돌아옵니다.
   <strong>서버에 저장하지 않습니다.</strong> 판정에 쓴 값은 판정이 끝나면 서버에서 바로 지워집니다.</li>
-  <li><strong>이용자의 기기에도 저장하지 않습니다.</strong> 쿠키와 브라우저 저장소를 쓰지 않으며, 창을 닫거나 새로고침하면 입력하신 값은 사라집니다.</li>
+  <li><strong>입력하신 값은 이용자의 기기에도 저장하지 않습니다.</strong> 쿠키를 쓰지 않으며, 창을 닫거나 새로고침하면 입력하신 값은 사라집니다.
+  브라우저 저장소에는 제2조 7항의 이용 통계 값(무작위 번호와 들어온 길 등)만 두며, 입력값은 담지 않습니다.</li>
   <li>「가족·지인에게 보내기」를 누르시면 <strong>서비스 주소만</strong> 보냅니다(받는 분 화면을 큰 글씨로 여는 표시 <code>#invite=1</code> 포함).
   입력하신 약 이름이나 결과는 담지 않습니다.</li>
   <li>웹사이트에 접속하시면 웹사이트를 서비스하는 업체(Vercel)와 회사 서버(Supabase)에 <strong>접속 기록</strong>(IP 주소, 브라우저 종류, 접속 시각, 요청한 주소)이
@@ -323,6 +339,7 @@
   <li>알람·복약 확인 버튼을 누르실 때 자동으로 만들어지는 기록</li>
   <li>웹사이트 1분 점검 화면(<code>modubokyak.com/check/</code>)에서 이용자가 직접 선택·입력 — 판정에만 쓰고 저장하지 않습니다 (제2조 1항)</li>
   <li>웹사이트에 접속하실 때 자동으로 생기는 접속 기록 (IP 주소, 브라우저 종류, 접속 시각, 요청한 주소)</li>
+  <li>웹사이트 페이지를 여시거나 1분 점검 단계를 넘기실 때 자동으로 남는 이용 통계 (제2조 7항)</li>
 </ul>
 <div class="callout">
   <p><strong>앱 이용 중 자동으로 전송되는 항목</strong> — 앱 업데이트 기능(Expo Updates)이 앱을 켤 때 업데이트를 확인하면서
@@ -339,6 +356,41 @@
   <li><strong>목소리, 마이크</strong> (제6조)</li>
 </ul>
 <p>서버 설계상 지역·전화번호를 담을 자리가 있지만, <strong>이 버전의 앱에는 입력 화면도 없고 저장하는 동작도 없습니다.</strong></p>
+
+<h3 id="a2-7">7. 웹사이트 이용 통계 (자동 수집 장치의 설치·운영과 거부)</h3>
+<p>웹사이트의 세 곳 — 회사 소개(<code>/</code>), 1분 점검(<code>/check/</code>, 약국 안내용 <code>/check/senior/</code> 포함),
+앱 받기(<code>/app/</code>) — 에서 <strong>어느 단계까지 오시는지</strong> 알기 위해 아래 기록을 회사 서버(Supabase)에 남깁니다.
+로그인과 상관없이 남으며, <strong>계정과 이어지지 않습니다.</strong></p>
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>남기는 것</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td>브라우저 번호</td><td>처음 방문하실 때 브라우저가 만드는 <strong>무작위 번호</strong>입니다. 같은 브라우저로 다시 오셨는지 구분하는 데만 씁니다. 이름·연락처·기기 정보로 만든 값이 아닙니다.</td></tr>
+      <tr><td>방문 번호</td><td>한 번 들르신 것을 묶는 무작위 번호입니다. 30분 넘게 아무 동작이 없거나, 카카오톡 초대·약국 QR·다른 사이트를 거쳐 다시 들어오시면 새로 만듭니다.</td></tr>
+      <tr><td>본 페이지와 넘긴 단계</td><td>위 세 곳 중 어느 페이지를 열었는지, 1분 점검에서 어느 단계(영양제 고르기 → 약·연령대 고르기 → 점검 → 결과)까지 갔는지, 서버 연결 문제로 점검하지 못했는지,
+      「부모님 약 점검하기」·「가족·지인에게 1분 점검 보내기」·스토어로 이동하는 버튼을 눌렀는지, 그 점검이 본인 것인지 부모님 것인지</td></tr>
+      <tr><td>들어온 길</td><td>주소를 직접 여셨는지, 카카오톡 초대 링크(<code>#invite=1</code>)인지, 약국 QR(<code>/check/senior/</code>)인지.
+      다른 사이트를 거쳐 오셨다면 <strong>그 사이트의 도메인만</strong>(예: <code>search.naver.com</code>) 남기고, 주소 전체나 검색어는 남기지 않습니다.</td></tr>
+      <tr><td>시각</td><td>서버가 기록을 받은 시각</td></tr>
+    </tbody>
+  </table>
+</div>
+<ul>
+  <li><strong>담지 않는 것</strong> — 고르거나 적으신 약·영양제 이름, 연령대, 건강 상태, 점검 결과, 이름, 계정 번호.
+  이 기록에는 IP 주소도 넣지 않습니다(웹사이트에 접속할 때 자동으로 남는 접속 기록은 제2조 1항 그대로입니다).</li>
+  <li><strong>브라우저에 저장하는 것</strong> — 위 브라우저 번호와 방문 번호, 그 번호를 만든 시각과 마지막으로 기록을 보낸 시각, 이번 방문의 들어온 길(바로·카카오톡 초대·약국 QR, 거쳐 온 사이트의 도메인)을
+  브라우저 저장소(localStorage)에 둡니다. 아래 끄기 버튼을 누르시면 그 설정도 여기에 둡니다. <strong>쿠키는 쓰지 않습니다.</strong>
+  브라우저 번호는 90일이 지나면 새로 만듭니다.</li>
+  <li><strong>거부하는 방법</strong> — 아래 <strong>「이 브라우저에서 이용 통계 끄기」</strong>를 누르시거나, 브라우저 설정에서 <strong>&lsquo;추적 거부(Do Not Track)&rsquo;</strong> 또는 <strong>GPC(Global Privacy Control)</strong>를 켜시면 아무 기록도 보내지 않습니다.
+  끄기 버튼은 누른 브라우저에만 적용되고, 그 브라우저에 저장된 번호도 함께 지웁니다. 브라우저의 사이트 데이터를 지우시면 끄기 설정도 함께 지워지니 다시 눌러 주세요.
+  브라우저의 사이트 데이터(저장소)를 지우시면 저장된 번호가 지워지고, 그 뒤의 기록은 이전 기록과 이어지지 않습니다.
+  기록을 거부하셔도 웹 1분 점검과 다른 기능은 똑같이 쓰실 수 있습니다.</li>
+  <li><strong>보관</strong> — 서버의 기록은 90일이 지나면 자동으로 지웁니다(제4조).</li>
+</ul>
+<div class="callout optout" id="optout">
+  <button type="button" id="optout-btn" hidden>이 브라우저에서 이용 통계 끄기</button>
+  <p role="status" id="optout-state">이 브라우저의 설정을 확인하려면 자바스크립트가 켜져 있어야 합니다.</p>
+</div>
 
 
 <h2 id="a3">제3조 (개인정보의 처리 목적)</h2>
@@ -358,6 +410,7 @@
       <tr><td>동의하신 내용을 확인하기</td><td>동의 기록(동의 항목·문구 버전·시각)</td></tr>
       <tr><td>점검 결과를 저장해 두고, 나중에 다시 보여 드리기</td><td>1분 점검 입력과 결과 (로그인한 뒤)</td></tr>
       <tr><td>알람이 제시간에 갔는지, 어느 단계가 어려우신지 확인해 서비스를 고치기</td><td>알람 기록, 온보딩 진행 지표</td></tr>
+      <tr><td>웹사이트에서 어느 단계가 어려우신지, 1분 점검에서 앱 받기까지 얼마나 이어지는지 확인해 서비스를 고치기</td><td>웹사이트 이용 통계 (제2조 7항)</td></tr>
       <tr><td>앱 업데이트 전달과 오류 원인 확인</td><td>설치 식별값, 오류 정보 (Expo 서버)</td></tr>
     </tbody>
   </table>
@@ -380,8 +433,10 @@
       <li>기기에 저장된 정보: 앱 저장소에서 지웁니다. 다만 <strong>일부 값은 남습니다</strong> — 무엇이 남는지는 제9조 3항에 그대로 적었습니다.</li>
     </ul>
   </li>
-  <li><strong>이용 통계의 자동 삭제</strong> — 제2조 3항의 &lsquo;알람 기록&rsquo;과 &lsquo;온보딩 진행 지표&rsquo;는 <strong>90일이 지나면 서버에서 자동으로 삭제합니다</strong> (매일 한 번 실행, 2026년 10월 15일부터 적용).</li>
-  <li><strong>계정과 연결되지 않는 기록</strong> — 온보딩 진행 지표는 처음부터 계정 번호를 담지 않고 저장됩니다. 그래서 누구의 기록인지 찾을 수 없고, 개별 삭제의 대상이 되지 않으며 위 90일 자동 삭제로만 지워집니다.</li>
+  <li><strong>이용 통계의 자동 삭제</strong> — 제2조 3항의 &lsquo;알람 기록&rsquo;과 &lsquo;온보딩 진행 지표&rsquo;, 제2조 7항의 &lsquo;웹사이트 이용 통계&rsquo;는 <strong>90일이 지나면 서버에서 자동으로 삭제합니다</strong> (매일 한 번 실행, 2026년 10월 15일부터 적용. 웹사이트 이용 통계는 2026년 10월 29일부터 모읍니다).</li>
+  <li><strong>계정과 연결되지 않는 기록</strong> — 온보딩 진행 지표는 처음부터 계정 번호를 담지 않고 저장됩니다. 그래서 누구의 기록인지 찾을 수 없고, 개별 삭제의 대상이 되지 않으며 위 90일 자동 삭제로만 지워집니다.
+  웹사이트 이용 통계도 계정 번호 없이 무작위 브라우저 번호로만 저장되어, 회사는 그 번호로 누구인지 알 수 없고 개별 요청으로 찾아 지울 수 없습니다. 위 90일 자동 삭제로 지워지며,
+  브라우저에 둔 번호는 브라우저의 사이트 데이터를 지우시면 바로 지워집니다(제2조 7항).</li>
   <li><strong>Expo 서버에 남는 값</strong> — 앱 업데이트 기능이 보낸 설치 식별값과 오류 정보는 Expo 서버에 남으며, 앱 안의 계정 삭제로는 지워지지 않습니다. 보관 기간은 Expo의 정책을 따릅니다(제8조).</li>
   <li>법령에 따라 별도로 보존해야 하는 정보가 있는 경우에는 그 법령이 정한 기간 동안 보관합니다.</li>
 </ol>
@@ -401,13 +456,14 @@
   안내는 화면 글자와 알람 소리로 드리고, 대답은 <strong>화면 버튼</strong>으로만 받습니다.</li>
   <li><strong>알람 소리를 만들려고 정보를 밖으로 보내지 않습니다.</strong> 알람 소리는 앱 안에 들어 있는 소리 파일을 그대로 울리는 것입니다.</li>
   <li><strong>광고 식별자(AAID·IDFA)를 수집하지 않습니다.</strong></li>
-  <li><strong>광고 네트워크와 사용자 행동 분석 도구는 넣지 않았습니다.</strong> 다만 앱 업데이트 기능이 제2조 5항에 적은 설치 식별값과 오류 정보를 Expo 서버로 보냅니다.</li>
+  <li><strong>광고 네트워크와 외부 행동 분석 도구(구글 애널리틱스 같은 서비스)는 넣지 않았습니다.</strong> 다만 앱 업데이트 기능이 제2조 5항에 적은 설치 식별값과 오류 정보를 Expo 서버로 보내고,
+  웹사이트는 제2조 7항의 이용 통계를 회사 서버에 직접 남깁니다.</li>
   <li><strong>카카오·Apple 로그인에서는 이메일 주소를 받지 않습니다.</strong> 카카오에는 닉네임만, Apple에는 이름만 요청합니다.
   카카오의 이메일·프로필 사진과 Apple의 이메일은 요청하지도, 읽지도 않습니다. 로그인이 끝나면
   카카오 회원번호·닉네임, Apple 사용자 식별값·이름(공유를 허락하신 경우)만 받습니다. 이메일 주소는 이용자가 이메일 로그인을 고른 경우에만 받습니다. (제2조 2항)</li>
   <li><strong>약봉투·처방전 사진을 회사 서버에 보관하지 않습니다.</strong> 사진은 글자를 읽기 위해 전달된 뒤 버려지고, 읽어낸 결과로 만들어진 <strong>복약 일정만</strong> 저장됩니다.</li>
   <li><strong>생년월일·성별·전화번호·주소·위치 정보를 받지 않습니다.</strong> (제2조 6항)</li>
-  <li><strong>웹사이트는 쿠키와 광고·분석 도구를 쓰지 않습니다.</strong> 웹 1분 점검의 입력값은 기기에도, 서버에도 저장하지 않습니다. (제2조 1항)</li>
+  <li><strong>웹사이트는 쿠키와 광고 도구, 외부 분석 서비스를 쓰지 않습니다.</strong> 웹 1분 점검의 입력값은 기기에도, 서버에도 저장하지 않으며 이용 통계에도 담지 않습니다. (제2조 1항·7항)</li>
   <li><strong>개인정보를 판매하지 않습니다.</strong></li>
 </ul>
 
@@ -421,8 +477,8 @@
       <tr>
         <td>Supabase Pte. Ltd.</td>
         <td>서비스 데이터와 로그인 계정의 보관과 처리(데이터베이스 운영, 이메일 로그인의 비밀번호 단방향 암호화 보관 포함), 서버 기능 실행(1분 점검 판정 — 앱과 웹사이트, 외부 AI 요청 중계, 카카오 로그인 확인)</td>
-        <td>제2조에서 &ldquo;서버에 저장&rdquo;으로 표시된 모든 항목, 웹 1분 점검 입력값(판정에만 쓰고 저장하지 않음), 접속 기록</td>
-        <td>서비스 이용 기간 또는 이용자가 삭제할 때까지 (웹 1분 점검 입력값은 판정이 끝나면 바로 지움)</td>
+        <td>제2조에서 &ldquo;서버에 저장&rdquo;으로 표시된 모든 항목, 웹 1분 점검 입력값(판정에만 쓰고 저장하지 않음), 웹사이트 이용 통계(제2조 7항), 접속 기록</td>
+        <td>서비스 이용 기간 또는 이용자가 삭제할 때까지 (웹 1분 점검 입력값은 판정이 끝나면 바로 지움, 웹사이트 이용 통계는 90일)</td>
       </tr>
       <tr>
         <td>Vercel Inc.</td>
@@ -493,9 +549,9 @@
       <tr>
         <td>Supabase Pte. Ltd.</td><td>데이터는 대한민국(서울) 리전에 저장합니다. 운영사는 싱가포르 법인이고, 서버 기능은 이용자와 가까운 다른 나라 지역에서 실행될 수 있습니다.</td>
         <td>서비스 이용 중 상시 · HTTPS 전송</td>
-        <td>제2조에서 &ldquo;서버에 저장&rdquo;으로 표시된 모든 항목, 웹 1분 점검 입력값(판정에만 쓰고 저장하지 않음), 접속 기록</td>
+        <td>제2조에서 &ldquo;서버에 저장&rdquo;으로 표시된 모든 항목, 웹 1분 점검 입력값(판정에만 쓰고 저장하지 않음), 웹사이트 이용 통계(제2조 7항), 접속 기록</td>
         <td>데이터 보관·처리, 서버 기능 실행(1분 점검 판정 포함)</td>
-        <td>서비스 이용 기간 또는 이용자가 삭제할 때까지 (웹 1분 점검 입력값은 판정이 끝나면 바로 지움)</td>
+        <td>서비스 이용 기간 또는 이용자가 삭제할 때까지 (웹 1분 점검 입력값은 판정이 끝나면 바로 지움, 웹사이트 이용 통계는 90일)</td>
       </tr>
       <tr>
         <td>Expo (650 Industries, Inc.)</td><td>미국</td>
@@ -523,6 +579,7 @@
   <li><strong>Supabase로의 이전</strong>: 이 이전을 거부하시면 로그인·복약 일정 저장·알람을 포함한 서비스의 핵심 기능을 이용하실 수 없습니다.
   거부를 원하시면 앱의 「계정 삭제」(제9조)로 저장된 정보를 지우고 이용을 중단하실 수 있습니다.</li>
   <li><strong>웹 1분 점검</strong>: 웹 점검을 하지 않으시면 입력값은 전송되지 않습니다. 접속 기록은 웹사이트에 접속하는 것만으로 남습니다.</li>
+  <li><strong>웹사이트 이용 통계</strong>: 제2조 7항의 「이 브라우저에서 이용 통계 끄기」를 누르시거나 브라우저의 &lsquo;추적 거부(Do Not Track)&rsquo; 또는 GPC를 켜시면 보내지 않습니다.</li>
   <li><strong>앱 업데이트 기능의 전송</strong>: 이 전송을 거부하려면 앱을 설치하지 않거나 삭제하는 방법뿐입니다.</li>
 </ul>
 
@@ -606,12 +663,12 @@ Apple이 본인을 확인한 뒤 사용자 식별값과 (공유를 허락하신 
 <p>회사는 아래 조치를 하고 있습니다. <strong>실제로 하고 있는 것만 적었습니다.</strong></p>
 <ol>
   <li><strong>모든 통신은 HTTPS로 암호화된 연결을 씁니다.</strong> 앱이 서버와 주고받는 모든 통신이 여기에 해당합니다.</li>
-  <li><strong>꼭 필요한 정보만 모읍니다.</strong> 마이크를 쓰지 않고, 광고 식별자를 모으지 않으며, 광고 네트워크와 사용자 행동 분석 도구를 넣지 않았습니다.
+  <li><strong>꼭 필요한 정보만 모읍니다.</strong> 마이크를 쓰지 않고, 광고 식별자를 모으지 않으며, 광고 네트워크와 외부 행동 분석 도구를 넣지 않았습니다.
   카카오·Apple 로그인 때에는 카카오 회원번호·닉네임, Apple 사용자 식별값·이름만 받고 이메일 주소는 받지 않습니다. 이메일 로그인의 비밀번호는 인증 서비스가 단방향 암호화해 보관합니다. (제6조)</li>
   <li><strong>약봉투·처방전 사진을 서버에 보관하지 않습니다.</strong> 글자를 읽고 나면 버립니다.</li>
   <li><strong>외부 AI 서비스를 부르는 데 쓰는 인증 키를 앱 안에 넣지 않습니다.</strong> 이 키는 회사 서버에만 두고, 앱은 회사 서버를 거쳐서만 요청합니다. 카카오 로그인을 확인하는 데 쓰는 비밀 키도 회사 서버에만 있습니다.</li>
-  <li><strong>온보딩 진행 지표는 처음부터 계정 번호 없이</strong> 저장하도록 만들었습니다.</li>
-  <li><strong>알람 기록과 온보딩 진행 지표는 90일이 지나면 서버에서 자동으로 지웁니다.</strong> (제4조)</li>
+  <li><strong>온보딩 진행 지표와 웹사이트 이용 통계는 처음부터 계정 번호 없이</strong> 저장하도록 만들었습니다. 웹사이트 이용 통계에는 IP 주소와 1분 점검 입력값도 넣지 않습니다.</li>
+  <li><strong>알람 기록, 온보딩 진행 지표, 웹사이트 이용 통계는 90일이 지나면 서버에서 자동으로 지웁니다.</strong> (제4조)</li>
   <li><strong>이용자가 앱 안에서 직접, 즉시 데이터를 지울 수 있는 기능</strong>을 제공합니다. (제9조)</li>
   <li>서버의 접근 권한 관리는 <strong>단계적으로 강화하고 있습니다.</strong></li>
 </ol>
@@ -648,7 +705,8 @@ Apple이 본인을 확인한 뒤 사용자 식별값과 (공유를 허락하신 
 
 
 <h2 id="a14">제14조 (부칙)</h2>
-<p>이 개인정보처리방침은 <strong>2026년 10월 15일</strong> 부터 적용됩니다.</p>
+<p>이 개인정보처리방침은 <strong>2026년 10월 29일</strong> 부터 적용됩니다.</p>
+<p>이전 방침(2026년 10월 15일부터 2026년 10월 28일까지 적용)은 <a href="/privacy/2026-10-15/">https://modubokyak.com/privacy/2026-10-15/</a>에서 보실 수 있습니다.</p>
 
 
 <div class="doc-note">
@@ -670,6 +728,34 @@ Apple이 본인을 확인한 뒤 사용자 식별값과 (공유를 허락하신 
     <p class="mono" lang="en">&copy; 2026 AhnPharm Inc.</p>
   </div>
 </footer>
+
+<script>
+  // 제2조 7항 「이 브라우저에서 이용 통계 끄기」 — /stats.js 가 localStorage 'mb_optout' = '1' 이면 아무것도 보내지 않는다.
+  // 끌 때는 이 브라우저의 번호(mb_visitor·mb_visit)도 지운다. 저장소를 못 쓰는 브라우저는 애초에 같은 사람으로 묶이지 않는다고 알린다.
+  (function () {
+    var btn = document.getElementById("optout-btn");
+    var out = document.getElementById("optout-state");
+    var store = null;
+    try { store = window.localStorage; store.getItem("mb_optout"); } catch (e) { store = null; }
+    var dnt = navigator.globalPrivacyControl === true || navigator.doNotTrack === "1" || window.doNotTrack === "1";
+    function show() {
+      var off = !!store && store.getItem("mb_optout") === "1";
+      if (dnt) out.textContent = "이 브라우저는 추적 거부(Do Not Track·GPC)가 켜져 있어 이용 통계를 보내지 않습니다.";
+      else if (!store) out.textContent = "이 브라우저는 사이트 저장소를 쓸 수 없어 끄기 설정을 남길 수 없습니다. 대신 번호가 저장되지 않아, 들어오실 때마다 다른 사람으로 셉니다.";
+      else out.textContent = off ? "지금 이 브라우저에서는 이용 통계를 보내지 않습니다." : "지금 이 브라우저에서는 이용 통계를 보냅니다.";
+      btn.textContent = off ? "이 브라우저에서 이용 통계 다시 켜기" : "이 브라우저에서 이용 통계 끄기";
+      btn.hidden = dnt || !store;
+    }
+    btn.addEventListener("click", function () {
+      try {
+        if (store.getItem("mb_optout") === "1") store.removeItem("mb_optout");
+        else { store.setItem("mb_optout", "1"); store.removeItem("mb_visitor"); store.removeItem("mb_visit"); }
+      } catch (e) { /* 저장소가 막히면 show() 가 그렇게 알린다 */ store = null; }
+      show();
+    });
+    show();
+  })();
+</script>
 
 </body>
 </html>
